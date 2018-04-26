@@ -6,6 +6,6 @@ class DigSite
   end
 
   def finished?
-    activities.empty?
+    activities.all?(&:finished?)
   end
 end

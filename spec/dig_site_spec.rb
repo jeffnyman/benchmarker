@@ -11,5 +11,11 @@ RSpec.describe DigSite do
       dig.activities << activity
       expect(dig).not_to be_finished
     end
+
+    it "considers a dig as finished if all activities are finished" do
+      dig.activities << activity
+      activity.set_finished
+      expect(dig).to be_finished
+    end
   end
 end
