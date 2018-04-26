@@ -37,4 +37,28 @@ RSpec.describe DigSite do
       expect(dig.remaining_cost).to eq(27)
     end
   end
+
+  describe "pace" do
+    let(:dig) { DigSite.new }
+    let(:finished_recently) { Activity.new(cost: 5, finished: 1.day.ago) }
+    let(:finished_awhile_ago) { Activity.new(cost: 10, finished: 1.month.ago) }
+    let(:small_unfinished) { Activity.new(cost: 2) }
+    let(:large_unfinished) { Activity.new(cost: 25) }
+
+    before(:example) do
+      dig.activities = [finished_recently, finished_awhile_ago, small_unfinished, large_unfinished]
+    end
+
+    it "provides a calculation based on finished activities" do
+      expect(dig.finished_pace).to eq(5)
+    end
+
+    it "provides a calculation of current rate of finishing activities" do
+      expect(dig.current_pace).to eq(1.0 / 2.8)
+    end
+
+    it "provides the projected days of work remaining" do
+      expect(dig.projected_days_remaining).to eq(75.6)
+    end
+  end
 end

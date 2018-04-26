@@ -20,4 +20,16 @@ class DigSite
   def unfinished_activities
     activities.reject(&:finished?)
   end
+
+  def finished_pace
+    activities.sum(&:counts_towards_pace)
+  end
+
+  def current_pace
+    finished_pace * 1.0 / 14
+  end
+
+  def projected_days_remaining
+    remaining_cost / current_pace
+  end
 end
