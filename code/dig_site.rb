@@ -1,5 +1,5 @@
 class DigSite
-  attr_accessor :activities
+  attr_accessor :activities, :ideal_finish_date
 
   def initialize
     @activities = []
@@ -31,5 +31,9 @@ class DigSite
 
   def projected_days_remaining
     remaining_cost / current_pace
+  end
+
+  def on_time?
+    (Date.today + projected_days_remaining) <= ideal_finish_date
   end
 end

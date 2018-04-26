@@ -60,5 +60,15 @@ RSpec.describe DigSite do
     it "provides the projected days of work remaining" do
       expect(dig.projected_days_remaining).to eq(75.6)
     end
+
+    it "provides an indication of not being on time" do
+      dig.ideal_finish_date = 2.weeks.from_now
+      expect(dig).not_to be_on_time
+    end
+
+    it "provides an indication of being on time" do
+      dig.ideal_finish_date = 3.months.from_now
+      expect(dig).to be_on_time
+    end
   end
 end
