@@ -18,4 +18,23 @@ RSpec.describe DigSite do
       expect(dig).to be_finished
     end
   end
+
+  describe "costs" do
+    let(:dig) { DigSite.new }
+    let(:finished) { Activity.new(cost: 10, finished: true) }
+    let(:small_unfinished) { Activity.new(cost: 2) }
+    let(:large_unfinished) { Activity.new(cost: 25) }
+
+    before(:example) do
+      dig.activities = [finished, small_unfinished, large_unfinished]
+    end
+
+    it "provides a total cost of all activities" do
+      expect(dig.total_cost).to eq(37)
+    end
+
+    it "provides a remaining cost based on unfinished activities" do
+      expect(dig.remaining_cost).to eq(27)
+    end
+  end
 end

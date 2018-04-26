@@ -1,6 +1,9 @@
 class Activity
-  def initialize
-    @finished = false
+  attr_accessor :cost
+
+  def initialize(setup = {})
+    @finished = setup[:finished]
+    @cost = setup[:cost]
   end
 
   def finished?
